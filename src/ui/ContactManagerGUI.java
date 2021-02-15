@@ -1,6 +1,9 @@
 package ui;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,11 +11,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import model.ListManager;
 import model.addContact;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -92,12 +98,46 @@ public class ContactManagerGUI {
     
     @FXML
     public void exportContact(ActionEvent event) {
+    	FileChooser fileChooser = new FileChooser();
+    	fileChooser.setTitle("Open Resource File");
+    	File f = fileChooser.showOpenDialog(mainPanel.getScene().getWindow());
+        if (f != null) {
+        	Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setTitle("Import Contacts");
+            try {
+				listManager.exportContacts(f.getAbsolutePath());
+				alert.setContentText("The contacts was exported");
 
+				alert.showAndWait();
+			} catch (FileNotFoundException e) {
+				alert.setContentText("The contacts was NOT exported");
+
+				alert.showAndWait();
+				e.printStackTrace();
+			}
+        }
     }
 
     @FXML
     public void importContact(ActionEvent event) {
+    	FileChooser fileChooser = new FileChooser();
+    	fileChooser.setTitle("Open Resource File");
+    	File f = fileChooser.showOpenDialog(mainPanel.getScene().getWindow());
+    	if(f != null) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setTitle("Import Contacts");
+    		try {
+				listManager.importContacts(f.getAbsolutePath());
+				alert.setContentText("The contacts was imported");
 
+				alert.showAndWait();
+			} catch (IOException e) {
+				alert.setContentText("The contacts was NOT imported");
+
+				alert.showAndWait();
+				e.printStackTrace();
+			}
+    	}
     }
 
 
