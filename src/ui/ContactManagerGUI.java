@@ -60,7 +60,7 @@ public class ContactManagerGUI {
     }
 
     @FXML
-    void loadAddContact(ActionEvent event) throws IOException {
+    public void loadAddContact(ActionEvent event) throws IOException {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add-contact.fxml"));
     	fxmlLoader.setController(this);
     	Parent addContactPane = fxmlLoader.load();
@@ -70,7 +70,7 @@ public class ContactManagerGUI {
     }
 
     @FXML
-    void loadContactList(ActionEvent event) throws IOException {
+    public void loadContactList(ActionEvent event) throws IOException {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("contact-list.fxml"));
     	fxmlLoader.setController(this);
     	Parent contactListPane = fxmlLoader.load();
@@ -81,13 +81,23 @@ public class ContactManagerGUI {
     }
     
     @FXML
-    void addContact(ActionEvent event) {
+    public void addContact(ActionEvent event) {
     	listManager.addContact(txtName.getText(),txtEmail.getText());
     	
     	txtName.setText("");
     	txtEmail.setText("");
     	
     	labMsg.setText("The contact was added succesfully!");
+    }
+    
+    @FXML
+    public void exportContact(ActionEvent event) {
+
+    }
+
+    @FXML
+    public void importContact(ActionEvent event) {
+
     }
 
 
